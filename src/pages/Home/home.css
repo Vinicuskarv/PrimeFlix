@@ -1,6 +1,6 @@
 .lista-filmes{
     max-width: 800px;
-    margin: 14px;
+    margin: 14px auto;
 }
 
 .loading{
