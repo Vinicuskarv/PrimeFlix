@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 import api from '../../services/api';
+import { toast } from 'react-toastify';
+
 import './filme-info.css';
 
 function Filme() {
@@ -21,19 +23,15 @@ function Filme() {
                     }
                 });
                 setFilmes(response.data);
-                console.log(response.data);
                 setLoading(false);
             } catch (error) {
-                console.log("Erro ao carregar a página");
                 navigate("/", { replace: true });
             }
         }
 
         loadFilmes();
 
-        return () => {
-            console.log("Componente desmontado");
-        };
+        return;
     }, [id, navigate]);
 
     function salvarFilme(){
@@ -43,13 +41,13 @@ function Filme() {
 
         const hasFilme = filmesSalvos.some((filmeSalvo) => filmeSalvo.id === filme.id)
         if (hasFilme){
-            alert("Esse filme já esta na sua lista!")
+            toast.warn("Esse filme já esta na sua lista!")
             return;
         }
 
         filmesSalvos.push(filme);
         localStorage.setItem("@primeflix", JSON.stringify(filmesSalvos));
-        alert("Filme salvo com sucesso!");
+        toast.success("Filme salvo com sucesso!")
 
 
     }
